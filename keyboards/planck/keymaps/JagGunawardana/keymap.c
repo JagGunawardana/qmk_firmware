@@ -31,11 +31,15 @@ enum planck_keycodes {
 };
 
 #define SPC_SHF MT(MOD_LSFT, KC_SPC)
+#define SPC_NUM LT(_NUMBER, KC_SPC)
 
 #define ESC_HYP MT(MOD_HYPR, KC_ESC)
-#define TAB_NUM LT(_NUMBER, KC_TAB)
-#define BSP_SYM LT(_SYMBOL, KC_BSPC)
+#define TAB_ALT MT(MOD_RALT, KC_TAB)
+#define BSP_NUM LT(_NUMBER, KC_BSPC)
 #define DEL_WRP MT(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_DEL)
+#define ESC_SYM LT(_SYMBOL, KC_ESC)
+#define DEL_SYM LT(_SYMBOL, KC_DEL)
+#define ENT_FUN LT(_FUNC, KC_ENT)
 
 #define SYMLOCK TG(_SYMBOL)
 #define NUMLOCK TG(_NUMBER)
@@ -56,7 +60,11 @@ enum planck_keycodes {
 #define J_SHFT  MT(MOD_RSFT, KC_J)
 #define K_GUI   MT(MOD_RGUI, KC_K)
 #define L_ALT   MT(MOD_RALT, KC_L)
-#define MINSCTL MT(MOD_RCTL, KC_MINS)
+#define S_META  MT(MOD_LALT, KC_S)
+#define L_META  MT(MOD_LALT, KC_L)
+#define MINSCTL MT(MOD_RCTL, KC_SCLN)
+#define HSH_CTL MT(MOD_RCTL, KC_BSLS)
+#define QUO_MET MT(MOD_LALT, KC_QUOT)
 
 #define ENT_CTL MT(MOD_LCTL, KC_ENT)
 #define LT_ALT  MT(MOD_LALT, KC_LEFT)
@@ -85,56 +93,35 @@ enum planck_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Querty
-  |   #  |   q  |   w  |   e  |   r  |   t  |   y  |   u  |   i  |   o  |   p  |   -  |
-  |      |      |      |      |      |      |      |      |      |      |      |      |
+  | Esc  |   q  |   w  |   e  |   r  |   t  |   y  |   u  |   i  |   o  |   p  | BSPC |
+  | SYM  |      |      |      |      |      |      |      |      |      |      | NUM  |
   |------|------|------|------|------|------|------|------|------|------|------|------|
-  |   (  |   a  |   s  |   d  |   f  |   g  |   h  |   j  |   k  |   l  |   ;  |   '  |
-  |      | CTRL | ALT  |  GUI | SHIFT|      |      | SHIFT| GUI  | ALT  | CTRL |      |
+  | TAB  |   a  |   s  |   d  |   f  |   g  |   h  |   j  |   k  |   l  |   ;  | ENTER|
+  |      | CTRL | META |      |      |      |      |      |      |  META| CTRL |      |
   |------|------|------|------|------|------|------|------|------|------|------|------|
-  |   [  |   z  |   x  |   c  |   v  |   b  |   n  |   m  |   ,  |   .  |   /  |   >  |
-  |      |      |      |      |      |      |      |      |      |      |      |      |
+  |   (  |   z  |   x  |   c  |   v  |   b  |   n  |   m  |   ,  |   .  |   /  |   )  |
+  | SHIFT|      |      |      |      |      |      |      |      |      |      | SHIFT|
   |------|------|------|------|------|------|------|------|------|------|------|------|
-  | ctrl | alt  |  gui | Esc  | Tab  |   space     | Bksp |  Del | hyper| meh  | warp |
-  |      |      |      | FUNC |NUMBER|   SHIFT     |SYMBOL|      |      |      |      |
+  |      |      |      | LGUI | n/a  | DEL  | TAB  | SPC  | ENTER|      |      |      |
+  |      |      |      |      |      | SYM  | ALT  | NUM  | FUNC |      |      |      |
  */
  [_QWERTY] = LAYOUT_planck_grid(
-    KC_HASH, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_SCLN,
-    KC_LPRN, A_CTRL,  S_ALT,   D_GUI,   F_SHFT,  KC_G,    KC_H,    J_SHFT,  K_GUI,   L_ALT,   MINSCTL, KC_QUOT,
-    KC_LBRC, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RABK,
-    NUMLOCK, MO(_FUNC), ONE_MEH, ESC_HYP, TAB_NUM, SPC_SHF, SPC_SHF, BSP_SYM, DEL_WRP, ONE_WRP, ONE_DER, SYMLOCK
+    ESC_SYM, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    BSP_NUM,
+    KC_TAB,  A_CTRL,  S_META,  KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    L_META,  MINSCTL, KC_ENT, 
+    KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+    _______, _______, _______, KC_LGUI, _______, DEL_SYM, TAB_ALT, SPC_NUM, ENT_FUN, _______, _______, _______  
  ),
-/* Querty
-  |   q  |   w  |   e  |   r  |   t  |      |      |   y  |   u  |   i  |   o  |   p  |
-  |      |      |      |      |      |      |      |      |      |      |      |      |
-  |------|------|------|------|------|------|------|------|------|------|------|------|
-  |   a  |   s  |   d  |   f  |   g  |      |      |   h  |   j  |   k  |   l  |      |
-  |      |      |      |      |      |      |      |      |      |      |      |      |
-  |------|------|------|------|------|------|------|------|------|------|------|------|
-  |   z  |   x  |   c  |   v  |   b  |      |      |   n  |   m  |      |      |      |
-  |      |      |      |      |      |      |      |      |      |      |      |      |
-  |------|------|------|------|------|------|------|------|------|------|------|------|
-  | ctrl | alt  |  gui | Esc  | Tab  |   space     | Bksp |  Del | hyper| meh  | warp |
-  |      |      |      | FUNC |NUMBER|   SHIFT     |SYMBOL|      |      |      |      |
- */
- [_QWERTY] = LAYOUT_planck_grid(
-    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    ?,       ?,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    ?,       ?,       KC_H,    KC_J,    KC_K,    KC_L,    ?,
-    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    ?,       ?,       KC_N,    KC_M,    ?,       ?,       ?,
-    NUMLOCK, MO(_FUNC), ONE_MEH, ESC_HYP, TAB_NUM, SPC_SHF, SPC_SHF, BSP_SYM, DEL_WRP, ONE_WRP, ONE_DER, SYMLOCK
- ),
-
-
 /* Symbol
-  |      |   &  |   `  |   ~  |   [  |   ]  |   <  |   >  |   +  |   |  |      |      |
-  |      |   $  |   %  |   =  |   (  |   )  |   ;  |   :  |   !  |   @  |   _  |      |
-  |      |      |   ^  |   #  |   {  |   }  |   '  |   "  |   |  |   \  |   ?  |      |
-  |      |      |      |      |      |             | .... |      |      |      |      |
+  | n/a  |   !  |   "  |   £  |   $  |   %  |   ^  |   &  |   *  |   @  |   _  |   `  |
+  |      | CTRL | META |      |      |      |   {  |   }  |   "  |   '  |   #  |   ~  |
+  |  (   |      |      |      |      |      |   [  |   ]  |   |  |   \  |   /  |   )  |
+  |      |      |      | LGUI | n/a  | n/a  |      |      |      |      |      |      |
  */
  [_SYMBOL] = LAYOUT_planck_grid(
-     KC_ESC,  KC_AMPR, KC_GRV,  KC_TILD, KC_LBRC, KC_RBRC, KC_LABK, KC_RABK, KC_PLUS, KC_ASTR, XXXXXXX, KC_DEL,
-     KC_ENT,  KC_DLR,  KC_PERC, KC_EQL,  KC_LPRN, KC_RPRN, KC_SCLN, KC_COLN, KC_EXLM, KC_AT,   KC_UNDS, KC_BSPC,
-     _______, XXXXXXX, KC_CIRC, KC_HASH, KC_LCBR, KC_RCBR, KC_QUOT, KC_DQUO, KC_PIPE, KC_BSLS, KC_QUES, _______,
-     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+     _______, KC_EXLM, KC_AT,   _______, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_DQUO, KC_UNDS, ALGR(KC_GRV), 
+     _______, KC_LCTL, KC_LALT, _______, _______, _______, KC_LCBR, KC_RCBR, KC_AT,   QUO_MET, HSH_CTL, KC_PIPE,
+     KC_LSPO, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_TILD, KC_GRV,  KC_SLSH, KC_RSPC,
+     _______, _______, _______, KC_LGUI, _______, _______, _______, _______, _______, _______, _______, _______
  ),
 /* Number
   |      |      |<-word|  up  |word->| PgUp |   .  |   7  |   8  |   9  |   +  |   *  |
@@ -144,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_NUMBER] = LAYOUT_planck_grid(
     XXXXXXX, XXXXXXX, BWORD,   KC_UP,   FWORD,   KC_PGUP, KC_DOT,  KC_7,    KC_8,    KC_9,    KC_PLUS, KC_ASTR,
-    KC_CAPS, ENT_CTL, LT_ALT,  DN_GUI,  RT_SHFT, KC_PGDN, KC_0,    N4_SHFT, N5_GUI,  N6_ALT,  MINSCTL, KC_SLSH,
+    KC_CAPS, ENT_CTL, LT_ALT,  DN_GUI,  RT_SHFT, KC_PGDN, KC_0,    N4_SHFT, N5_GUI,  N6_ALT,  KC_MINUS,KC_SLSH,
     XXXXXXX, KC_BSPC, KC_HOME, KC_TAB,  KC_END,  KC_DEL,  KC_COMM, KC_1,    KC_2,    KC_3,    KC_EQL,  KC_PERC,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_COLN, KC_DLR,  _______
 ),
