@@ -38,7 +38,7 @@ enum planck_keycodes {
 #define BSP_NUM LT(_NUMBER, KC_BSPC)
 #define DEL_WRP MT(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_DEL)
 #define ESC_SYM LT(_SYMBOL, KC_ESC)
-#define DEL_SYM LT(_SYMBOL, KC_DEL)
+#define SPC_SYM LT(_SYMBOL, KC_SPC)
 #define ENT_FUN LT(_FUNC, KC_ENT)
 
 #define SYMLOCK TG(_SYMBOL)
@@ -96,55 +96,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   | Esc  |   q  |   w  |   e  |   r  |   t  |   y  |   u  |   i  |   o  |   p  | BSPC |
   | SYM  |      |      |      |      |      |      |      |      |      |      | NUM  |
   |------|------|------|------|------|------|------|------|------|------|------|------|
-  | TAB  |   a  |   s  |   d  |   f  |   g  |   h  |   j  |   k  |   l  |   ;  | ENTER|
+  | TAB  |   a  |   s  |   d  |   f  |   g  |   h  |   j  |   k  |   l  |   ;  |   "  |
   |      | CTRL | META |      |      |      |      |      |      |  META| CTRL |      |
   |------|------|------|------|------|------|------|------|------|------|------|------|
   |   (  |   z  |   x  |   c  |   v  |   b  |   n  |   m  |   ,  |   .  |   /  |   )  |
   | SHIFT|      |      |      |      |      |      |      |      |      |      | SHIFT|
   |------|------|------|------|------|------|------|------|------|------|------|------|
-  |      |      |      | LGUI | n/a  | DEL  | TAB  | SPC  | ENTER|      |      |      |
-  |      |      |      |      |      | SYM  | ALT  | NUM  | FUNC |      |      |      |
+  | TMUX |      |      | LGUI | n/a  | DEL  | TAB  | SPC  | ENTER|      |      |      |
+  |      |      |      |      |      | SYM  | ALT  | NUM  | FUNC |      |      | FUNC |
  */
  [_QWERTY] = LAYOUT_planck_grid(
     ESC_SYM, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    BSP_NUM,
-    KC_TAB,  A_CTRL,  S_META,  KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    L_META,  MINSCTL, KC_ENT, 
+    KC_TAB,  A_CTRL,  S_META,  KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    L_META,  MINSCTL, KC_AT,  
     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-    _______, _______, _______, KC_LGUI, _______, DEL_SYM, TAB_ALT, SPC_NUM, ENT_FUN, _______, _______, _______  
+LCTL(KC_GRV),_______, _______, KC_LGUI, _______, SPC_SYM, TAB_ALT, SPC_NUM, ENT_FUN, _______, _______, MO(_FUNC)
  ),
 /* Symbol
   | n/a  |   !  |   "  |   £  |   $  |   %  |   ^  |   &  |   *  |   @  |   _  |   `  |
-  |      | CTRL | META |      |      |      |   {  |   }  |   "  |   '  |   #  |   ~  |
+  |      | CTRL | META |   +  |   -  |   =  |   {  |   }  |   "  |   '  |   #  |   ~  |
   |  (   |      |      |      |      |      |   [  |   ]  |   |  |   \  |   /  |   )  |
   |      |      |      | LGUI | n/a  | n/a  |      |      |      |      |      |      |
  */
  [_SYMBOL] = LAYOUT_planck_grid(
      _______, KC_EXLM, KC_AT,   _______, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_DQUO, KC_UNDS, ALGR(KC_GRV), 
-     _______, KC_LCTL, KC_LALT, _______, _______, _______, KC_LCBR, KC_RCBR, KC_AT,   QUO_MET, HSH_CTL, KC_PIPE,
+     _______, KC_LCTL, KC_LALT, KC_PLUS, KC_MINUS,KC_EQL,  KC_LCBR, KC_RCBR, KC_AT,   QUO_MET, HSH_CTL, KC_PIPE,
      KC_LSPO, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_TILD, KC_GRV,  KC_SLSH, KC_RSPC,
      _______, _______, _______, KC_LGUI, _______, _______, _______, _______, _______, _______, _______, _______
  ),
 /* Number
-  |      |      |<-word|  up  |word->| PgUp |   .  |   7  |   8  |   9  |   +  |   *  |
-  |      | Enter| left | down | right| PgDn |   0  |   4  |   5  |   6  |   -  |   /  |
-  |      | Bksp | Home |  tab | End  | Del  |   ,  |   1  |   2  |   3  |   =  |   %  |
-  |      |      |      |      | .... |             |      |      |   :  |   $  |      |
+  |      |   1  |   2  |   3  |   4  |  5   |   6  |   7  |   8  |   9  |   0  |   -  |
+  |      |      | left |  up  | right|      |   0  |   4  |   5  |   6  |   *  |   +  |
+  |      |      |      | down |      |      |      |   1  |   2  |   3  |   =  |   %  |
+  |      |      |      |      |      |      |      |      |      |   :  |   $  |      |
  */
 [_NUMBER] = LAYOUT_planck_grid(
-    XXXXXXX, XXXXXXX, BWORD,   KC_UP,   FWORD,   KC_PGUP, KC_DOT,  KC_7,    KC_8,    KC_9,    KC_PLUS, KC_ASTR,
-    KC_CAPS, ENT_CTL, LT_ALT,  DN_GUI,  RT_SHFT, KC_PGDN, KC_0,    N4_SHFT, N5_GUI,  N6_ALT,  KC_MINUS,KC_SLSH,
-    XXXXXXX, KC_BSPC, KC_HOME, KC_TAB,  KC_END,  KC_DEL,  KC_COMM, KC_1,    KC_2,    KC_3,    KC_EQL,  KC_PERC,
+    XXXXXXX, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINUS,
+    _______, _______, KC_LEFT, KC_UP,   KC_RIGHT,_______, KC_0,    N4_SHFT, N5_GUI,  N6_ALT,  KC_ASTR, KC_PLUS,
+    _______, _______, _______, KC_DOWN, _______, _______, _______, KC_1,    KC_2,    KC_3,    KC_EQL,  KC_PERC,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_COLN, KC_DLR,  _______
 ),
 /* Function
- * | Reset| Mctl | Pspc | Nwin | Nspc | Desk |      |  F7  |  F8  |  F9  | F10  | F13  |
- * | Debug| Nctr | Ptab | Pwin | Ntab | Back | Fwd  |  F4  |  F5  |  F6  | F11  | F14  |
- * | Mute | Vol- | Vol+ | Trk- | Trk+ | Play |      |  F1  |  F2  |  F3  | F12  | F15  |
+ * |      |      |      |  up  |      | PgUp |      |  F7  |  F8  |  F9  | F10  | F13  |
+ * |      |      | left | down | right| PgDn |      |  F4  |  F5  |  F6  | F11  | F14  |
+ * |      |      | Home |      | End  | Del  |      |  F1  |  F2  |  F3  | F12  | F15  |
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  */
 [_FUNC] = LAYOUT_planck_grid(
-    RESET,   XMSNCTL, XPRVSPC, NWIN,    XNXTSPC, XDSKTOP, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F13,
-    DEBUG,   XNOTIFY, PTAB,    PWIN,    NTAB,    NAVBACK, NAVFWD,  KC_F4,   KC_F5,   KC_F6,   KC_F11,  KC_F14,
-    KC_MUTE, KC_VOLD, KC_VOLU, KC_MRWD, KC_MFFD, KC_MPLY, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F12,  KC_F15,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_UP,   XXXXXXX, KC_PGUP, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F13,
+    XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT,KC_PGDN, XXXXXXX, KC_F4,   KC_F5,   KC_F6,   KC_F11,  KC_F14,
+    XXXXXXX, XXXXXXX, KC_HOME, XXXXXXX, KC_END,  KC_DEL,  XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F12,  KC_F15,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 };
