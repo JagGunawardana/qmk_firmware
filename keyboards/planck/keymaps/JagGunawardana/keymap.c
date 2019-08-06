@@ -39,7 +39,10 @@ enum planck_keycodes {
 #define DEL_WRP MT(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_DEL)
 #define ESC_SYM LT(_SYMBOL, KC_ESC)
 #define SPC_SYM LT(_SYMBOL, KC_SPC)
-#define ENT_FUN LT(_FUNC, KC_ENT)
+#define SPC_FUN LT(_FUNC, KC_SPC)
+
+#define QUO_NUM LT(_NUMBER, KC_AT)
+#define SQUO_SYM LT(_SYMBOL, KC_QUOT)
 
 #define SYMLOCK TG(_SYMBOL)
 #define NUMLOCK TG(_NUMBER)
@@ -96,20 +99,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   | Esc  |   q  |   w  |   e  |   r  |   t  |   y  |   u  |   i  |   o  |   p  | BSPC |
   | SYM  |      |      |      |      |      |      |      |      |      |      | NUM  |
   |------|------|------|------|------|------|------|------|------|------|------|------|
-  | TAB  |   a  |   s  |   d  |   f  |   g  |   h  |   j  |   k  |   l  |   ;  |   "  |
+  | TAB  |   a  |   s  |   d  |   f  |   g  |   h  |   j  |   k  |   l  |   ;  | ENT  |
   |      | CTRL | META |      |      |      |      |      |      |  META| CTRL |      |
   |------|------|------|------|------|------|------|------|------|------|------|------|
   |   (  |   z  |   x  |   c  |   v  |   b  |   n  |   m  |   ,  |   .  |   /  |   )  |
   | SHIFT|      |      |      |      |      |      |      |      |      |      | SHIFT|
   |------|------|------|------|------|------|------|------|------|------|------|------|
-  | TMUX |      |      | LGUI | n/a  | DEL  | TAB  | SPC  | ENTER|      |      |      |
-  |      |      |      |      |      | SYM  | ALT  | NUM  | FUNC |      |      | FUNC |
+  | TMUX |  "   |      | LGUI | n/a  | DEL  | TAB  | SPC  | SPC  |      |  '   |      |
+  |      | NUM  |      |      |      | SYM  | ALT  | NUM  | FUNC |      | SYM  | FUNC |
  */
  [_QWERTY] = LAYOUT_planck_grid(
     ESC_SYM, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    BSP_NUM,
-    KC_TAB,  A_CTRL,  S_META,  KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    L_META,  MINSCTL, KC_AT,  
+    KC_TAB,  A_CTRL,  S_META,  KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    L_META,  MINSCTL, KC_ENT, 
     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-LCTL(KC_GRV),_______, _______, KC_LGUI, _______, SPC_SYM, TAB_ALT, SPC_NUM, ENT_FUN, _______, _______, MO(_FUNC)
+LCTL(KC_GRV),QUO_NUM, _______, KC_LGUI, _______, SPC_SYM, TAB_ALT, SPC_NUM, SPC_FUN, _______, SQUO_SYM,MO(_FUNC)
  ),
 /* Symbol
   | n/a  |   !  |   "  |   £  |   $  |   %  |   ^  |   &  |   *  |   @  |   _  |   `  |
